@@ -4,7 +4,7 @@ public class Pedido implements Serializable {
     
     private static final Data HOJE;
     private static final int MAX_COMIDAS;
-    protected static double valorTotalVendido;
+    public static double valorTotalVendido;
     private static int ultId;
     
     private Comida[] comidas;
@@ -106,6 +106,10 @@ public class Pedido implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	public void setFechado(boolean fechado) {
+		this.fechado = fechado;
 	}
 }
 

@@ -1,4 +1,6 @@
-public enum Ingrediente {
+import java.io.Serializable;
+
+public enum Ingrediente implements Serializable{
     BACON("Bacon", 2.49),
     CHEDDAR("Cheddar", 2.19),
     PALMITO("Palmito", 3.99),

@@ -1,4 +1,6 @@
-public class Pizza extends Comida{
+import java.io.Serializable;
+
+public class Pizza extends Comida implements Serializable{
   
     private static final double PRECO_BASE = 30.0; 
     private static final int MAX_ADICIONAIS = 10; 

@@ -1,4 +1,6 @@
-public abstract class Comida {
+import java.io.Serializable;
+
+public abstract class Comida implements Serializable{
 
     protected String descricao;
 	protected Ingrediente[] adicionais;

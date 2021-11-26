@@ -1,4 +1,6 @@
-public class Cliente25 implements IFidelidade{
+import java.io.Serializable;
+
+public class Cliente25 implements IFidelidade, Serializable{
 
     Data hoje = new Data(24,9,2021); //fake, mock, teste
 

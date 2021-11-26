@@ -6,22 +6,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class App {
-
-//	public static void dadosClientes(ArrayList<Pedido> pedidos) {
-//		pedidos.stream().forEach(pedido -> System.out.println(pedido + "\n"));
-//	}
-//	
-//	public static void valorTotalPedidos(ArrayList<Pedido> pedidos) {
-//		Stream<Pedido> dados = pedidos.stream();
-//		double aux = 0;
-//		
-//		dados.forEach(pedido -> System.out.println("Valor Total Pedidos: " + pedido.valorTotal()));
-//	}
 	
 	public static void limparTela() {
 		System.out.print("\033[H\033[2J");
@@ -105,11 +95,11 @@ public class App {
 		Scanner teclado = new Scanner(System.in);
 		Pedido pedido = null;
 		Cliente cliente = new Cliente("Ada Lovelace", "123456-78");
-		Map<String, Cliente> clientes = new HashMap<String, Cliente>();
+		Map<String, Cliente> clientes = new LinkedHashMap<String, Cliente>();
 		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 		
-		FileOutputStream fos = null;
-		ObjectOutputStream oos = null;
+		double total = 0;
+		double auxiliar = 0;
 
 		int opcao = -1;
 
@@ -168,7 +158,6 @@ public class App {
 				if (pedido != null) {
 
 					if (pedido.fecharPedido()) {
-
 						System.out.println(pedidos);
 
 						for (int i = 0; i < pedidos.size(); i++) {
@@ -178,12 +167,14 @@ public class App {
 							desconto = cliente.desconto() * aux;
 						}
 
-						double total = aux - desconto;
+						total = aux - desconto;
 
 						System.out.println("Desconto da cliente: R$ " + desconto);
 						System.out.println("A pagar: R$ " + total);
 						//valorTotalPedidos(pedidos);
-											
+						
+						pedidos.removeAll(pedidos);
+						
 
 					} else
 						System.out.println("Pedido nÃ£o foi fechado. Inclua comidas ou crie novo pedido.");
@@ -200,12 +191,10 @@ public class App {
 				Cliente cliente2 = new Cliente(nomeCliente, cpfCliente);
 				clientes.put(cpfCliente, cliente2);
 				break;
-			case 6: double aux2 = 0;
-				for(int i = 0; i < pedidos.size(); i++) {
-					pedidos.get(i);
-					aux2 += Pedido.valorTotalVendido;
-				}
-				System.out.println("Total vendido: " + aux2);
+			case 6: 
+				auxiliar += total;
+				System.out.println("Total vendido: " + auxiliar );
+				
 				pausa(teclado);
 				break;
 			}
@@ -214,10 +203,20 @@ public class App {
 
 		System.out.println("FIM");
 		teclado.close();
+		criaArquivo();
+
+	}
+	
+	public static void criaArquivo() {
+		Map<String, Cliente> clientes = new LinkedHashMap<String, Cliente>();
+		
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
 
 		try {
 			fos = new FileOutputStream("arquivo.dat");
 			oos = new ObjectOutputStream(fos);
+			oos.writeObject(clientes);
 		} catch (FileNotFoundException e) {
 			System.out.println("Arquivo não encontrado.");
 		} catch (IOException e) {

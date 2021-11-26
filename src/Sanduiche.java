@@ -1,4 +1,6 @@
-public class Sanduiche extends Comida{
+import java.io.Serializable;
+
+public class Sanduiche extends Comida implements Serializable{
 
     private static final double PRECO_BASE = 12.0; 
     private static final int MAX_ADICIONAIS = 7; 
